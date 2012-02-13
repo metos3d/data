@@ -2,7 +2,7 @@ Metos3D: A Marine Ecosystem Toolkit for Optimization and Simulation in 3-D
 
 -- Data --
 
-Metos3D was developed to use data provided by the Transport Matrix Method (www.ldeo.columbia.edu/~spk/Research/TMM/tmm.html) in the first place (see [1]). This data is maintained by Samar Khatiwala (www.ldeo.columbia.edu/~spk/). Metos3D supplies you with a MATLAB (registered trademark of The MathWorks, Inc., www.mathworks.com) script to prepare the data for usage.
+Metos3D was developed to use data provided by the Transport Matrix Method in the first place (see [Khatiwala et al., 2005], www.ldeo.columbia.edu/~spk/Research/TMM/tmm.html). This data is maintained by Samar Khatiwala (www.ldeo.columbia.edu/~spk/). Metos3D supplies you with a MATLAB (registered trademark of The MathWorks, Inc., www.mathworks.com) script to prepare the data for usage.
 
 -- Quick start --
 
@@ -25,3 +25,10 @@ prepareMetos3DData
 -- Documentation --
 
 You can find a LaTeX document in the 'doc' directory with more detailed information on the data.
+
+-- References --
+
+[Khatiwala et al., 2005]
+Khatiwala, S., Visbeck, M., Cane, M., 2005.
+Accelerated simulation of passive tracers in ocean circulation models.
+Ocean Modelling 9, 51– 69.
