@@ -1,0 +1,153 @@
+%
+%   metos3d-data.tex
+%
+%   Author:
+%       Jaroslaw Piwonski, CAU Kiel, jpi@informatik.uni-kiel.de
+%
+
+%
+%	document class
+%
+\documentclass{article}
+%
+%	packages
+%
+\usepackage{amsmath}
+\usepackage[pdfborder={0 0 0},colorlinks,urlcolor=blue]{hyperref}
+%
+%	commands
+%
+\parindent0em
+%
+%	new commands
+%
+\newcommand{\VERSION}{{0.1}}
+\newcommand{\Metos}{{\sc Metos3D}}
+%
+%	BEGIN DOCUMENT
+%
+\begin{document}
+%
+%	title
+%
+\title{
+\Metos \\
+\bigskip
+Data \\
+{\small Version \VERSION}
+}
+\author{
+Jaroslaw Piwonski\thanks{\texttt{jpi@informatik.uni-kiel.de}} \,,
+Thomas Slawig\thanks{\texttt{ts@informatik.uni-kiel.de},
+both: Department of Computer Science, Algorithmic Optimal Control -- Computational Marine Science,
+Excellence Cluster The Future Ocean, Christian-Albrechts-Platz 4, 24118 Kiel, Germany.}
+}
+\date{\today}
+\maketitle
+
+%
+%	Introdution
+%
+\section{Introdution}
+
+\Metos\ was developed to use data provided by the
+\href{http://www.ldeo.columbia.edu/~spk/Research/TMM/tmm.html}{Transport Matrix Method}
+in the first place (see \cite{KhViCa05}).
+This data is maintained by
+\href{http://www.ldeo.columbia.edu/~spk/}{Samar Khatiwala}.
+\Metos\ supplies you with a
+MATLAB\footnote{MATLAB is a registered trademark of The MathWorks, Inc., 
+\texttt{www.mathworks.com}}
+script to prepare the data for usage.
+
+%
+%	Quick Start
+%
+\section{Quick Start}
+
+Assuming you are in a data directory do the following:
+
+\begin{enumerate}
+\item Download the required data.
+\begin{verbatim}
+DATA $>
+wget http://www.ldeo.columbia.edu/%7Espk/Research/TMM/MIT_Matrix_Global_2.8deg.tar.gz  # 503M !!! 
+wget http://www.ldeo.columbia.edu/%7Espk/Code/Matlab/Matrix.tar.gz                     #   9K
+wget http://www.ldeo.columbia.edu/%7Espk/Code/Matlab/Misc.tar.gz                       #  23K
+wget http://www.ldeo.columbia.edu/%7Espk/Code/Matlab/MITgcm.tar.gz                     #  16K
+wget http://www.ldeo.columbia.edu/%7Espk/Code/Matlab/PETSC.tar.gz                      #  14K
+wget http://www.informatik.uni-kiel.de/~algopt/metos3d/data/Metos3DData.tar.gz         #   3K
+wget http://www.informatik.uni-kiel.de/~algopt/metos3d/data/prepareMetos3DData.m       #   2K
+\end{verbatim}
+\item Start MATLAB and call
+\begin{verbatim}
+>>
+prepareMetos3DData
+\end{verbatim}
+\end{enumerate}
+
+
+%
+%	Data
+%
+\section{Data}
+
+Currently a $ 2.8125^\circ $ ($ 2.8^\circ $ for short) spatial resolution is provided.
+The vector length, the profile count and the maximum number of layers is $ 52749 $, $ 4448 $
+and $ 15 $, respectively. The temporal resolution is $ 3 $ hours,
+assuming $ 360 $ days and $ 2880 $ steps per year.
+
+%Additional matrices for coarser temporal resolutions can be provided (see \cite{Kha07}).
+
+%
+%	Data Hierarchy
+%
+\subsection{Data Hierarchy}
+
+The data is organized in a hierarchy of directories starting with the
+root directory named \texttt{Metos3DData}.
+The \textbf{main distinction} between data files is the \textbf{spatial resolution}:
+\begin{verbatim}
+.../Metos3DData/
+    2.8/
+\end{verbatim}
+
+For a spatial resolution you will find a distinction
+into \textbf{geometry}, \textbf{initialization}, \textbf{forcing} and
+\textbf{transport} within that directory:
+\begin{verbatim}
+.../Metos3DData/2.8/
+    Geometry/
+    Initialization/
+    Forcing/
+    Transport/
+\end{verbatim}
+
+The geometry and initialization directories have no further subdirectories.
+The forcing is divided into \textbf{boundary} and \textbf{domain conditions}.
+\begin{verbatim}
+.../Metos3DData/2.8/Forcing/
+    BoundaryCondition/
+    DomainCondition/
+\end{verbatim}
+
+The transport matrices are organized within the transport directory.
+The first level of subdirectories denote the \textbf{kind} of matrices (see \cite{KhViCa05}).
+The second distinguishes between \textbf{temporal resolutions}.
+%The \texttt{1dt}
+%directory corresponds to the $ 3 $ hour time step, \texttt{2dt} to the $ 6 $
+%hour time step and so on:
+\begin{verbatim}
+.../Metos3DData/2.8/Transport/
+    Matrix5_4/
+        1dt/
+\end{verbatim}
+
+%
+%	References	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\bibliographystyle{plain}
+%\bibliography{/Users/jpicau/Documents/ARBEIT/CODE/Literature/literature}
+\input{metos3d-data-bbl}
+
+\end{document}
