@@ -28,6 +28,6 @@ pdf:
 	@echo "#"
 	pdflatex ${DOCBASENAME}.tex > /dev/null 2>&1; \
 	pdflatex ${DOCBASENAME}.tex > /dev/null 2>&1; \
-    rm ${DOCBASENAME}.log; \
-    rm ${DOCBASENAME}.out; \
-    rm ${DOCBASENAME}.aux;
+	rm ${DOCBASENAME}.log; \
+	rm ${DOCBASENAME}.out; \
+	rm ${DOCBASENAME}.aux;
