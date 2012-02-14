@@ -37,4 +37,4 @@ See the LaTeX document in the 'doc' directory for more detailed information.
 [Khatiwala et al., 2005]
 Khatiwala, S., Visbeck, M., Cane, M., 2005.
 Accelerated simulation of passive tracers in ocean circulation models.
-Ocean Modelling 9, 51– 69.
+Ocean Modelling 9, 51-69.
