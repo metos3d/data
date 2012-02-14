@@ -6,17 +6,17 @@ function convertHeightsToDepths
 %       Jaroslaw Piwonski, CAU Kiel, jpi@informatik.uni-kiel.de
 %
 
-%fid      = fopen ('gStartIndices.bin', 'r', 'ieee-be');
-%startidx = fread (fid, 4448, 'integer*4');
-%err      = fclose(fid);
-
-%fid      = fopen ('gEndIndices.bin', 'r', 'ieee-be');
-%endidx   = fread (fid, 4448, 'integer*4');
-%err      = fclose(fid);
-
 format compact
-load starts
-load ends
+%load starts
+%load ends
+
+fid    = fopen ('gStartIndices.bin', 'r', 'ieee-be');
+starts = fread (fid, 4448, 'integer*4');
+err    = fclose(fid);
+
+fid    = fopen ('gEndIndices.bin', 'r', 'ieee-be');
+ends   = fread (fid, 4448, 'integer*4');
+err    = fclose(fid);
 
 fid      = fopen ('dz.petsc', 'r', 'ieee-be');
 vecid    = fread (fid, 1, 'integer*4');
