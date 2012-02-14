@@ -6,7 +6,7 @@ Metos3D was developed to use data provided by the Transport Matrix Method in the
 
 -- Quick start --
 
-Assuming you are in the same directory as this 'README.txt' file, do the following:
+Assuming you are in the same directory as the 'README.txt' file, do the following:
 
 1. Download the required data:
 

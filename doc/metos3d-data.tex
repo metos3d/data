@@ -19,11 +19,6 @@
 %
 \parindent0em
 %
-%	new commands
-%
-\newcommand{\VERSION}{{0.1}}
-\newcommand{\Metos}{{\sc Metos3D}}
-%
 %	BEGIN DOCUMENT
 %
 \begin{document}
@@ -31,10 +26,9 @@
 %	title
 %
 \title{
-\Metos \\
+Metos3D \\
 \bigskip
-Data \\
-{\small Version \VERSION}
+Data
 }
 \author{
 Jaroslaw Piwonski\thanks{\texttt{jpi@informatik.uni-kiel.de}} \,,
@@ -50,34 +44,34 @@ Excellence Cluster The Future Ocean, Christian-Albrechts-Platz 4, 24118 Kiel, Ge
 %
 \section{Introdution}
 
-\Metos\ was developed to use data provided by the
+Metos3D was developed to use data provided by the
 \href{http://www.ldeo.columbia.edu/~spk/Research/TMM/tmm.html}{Transport Matrix Method}
 in the first place (see \cite{KhViCa05}).
+%
 This data is maintained by
 \href{http://www.ldeo.columbia.edu/~spk/}{Samar Khatiwala}.
-\Metos\ supplies you with a
+%
+Metos3D supplies you with a
 MATLAB\footnote{MATLAB is a registered trademark of The MathWorks, Inc., 
 \texttt{www.mathworks.com}}
-script to prepare the data for usage.
+script to prepare it for usage.
 
 %
 %	Quick Start
 %
 \section{Quick Start}
 
-Assuming you are in a data directory do the following:
+Assuming you are in the same directory as the 'README.txt' file, do the following:
 
 \begin{enumerate}
 \item Download the required data.
 \begin{verbatim}
-DATA $>
+$>
 wget http://www.ldeo.columbia.edu/%7Espk/Research/TMM/MIT_Matrix_Global_2.8deg.tar.gz  # 503M !!! 
 wget http://www.ldeo.columbia.edu/%7Espk/Code/Matlab/Matrix.tar.gz                     #   9K
 wget http://www.ldeo.columbia.edu/%7Espk/Code/Matlab/Misc.tar.gz                       #  23K
 wget http://www.ldeo.columbia.edu/%7Espk/Code/Matlab/MITgcm.tar.gz                     #  16K
 wget http://www.ldeo.columbia.edu/%7Espk/Code/Matlab/PETSC.tar.gz                      #  14K
-wget http://www.informatik.uni-kiel.de/~algopt/metos3d/data/Metos3DData.tar.gz         #   3K
-wget http://www.informatik.uni-kiel.de/~algopt/metos3d/data/prepareMetos3DData.m       #   2K
 \end{verbatim}
 \item Start MATLAB and call
 \begin{verbatim}
@@ -85,7 +79,6 @@ wget http://www.informatik.uni-kiel.de/~algopt/metos3d/data/prepareMetos3DData.m
 prepareMetos3DData
 \end{verbatim}
 \end{enumerate}
-
 
 %
 %	Data
