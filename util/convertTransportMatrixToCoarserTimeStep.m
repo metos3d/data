@@ -23,7 +23,9 @@ function convertTransportMatrixToCoarserTimeStep(dirFrom, dirTo, nmatrix, m)
 %	m*Ae = I + m*(Ae - I)
 %	m*Ai = Ai^m
 %
-%	see: Khatiwala, 2007, A computational framework for simulation of biogeochemical tracers in the ocean
+%   see: Khatiwala, S., 2007.
+%        A computational framework for simulation of bio- geochemical tracers in the ocean.
+%        Global Biogeochemical Cycles 21.
 
 for i = 1:nmatrix
 

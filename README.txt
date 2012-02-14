@@ -24,7 +24,7 @@ prepareMetos3DData
 
 -- Documentation --
 
-You can compile the LaTeX document in the 'doc' directory for more detailed information about file formats and resolution.
+See the LaTeX document in the 'doc' directory for more detailed information.
 
 -- References --
 
