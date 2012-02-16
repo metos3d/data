@@ -24,7 +24,7 @@ prepareMetos3DData
 
 -- Documentation --
 
-See the LaTeX document in the 'doc' directory for more detailed information.
+Inspect the 'doc' directory for more detailed information.
 
 -- References --
 
