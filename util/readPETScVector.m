@@ -1,4 +1,4 @@
-function v = readVectorFromPETSc(filename)
+function v = readPETScVector(filename)
 %
 % Metos3D: A Marine Ecosystem Toolkit for Optimization and Simulation in 3-D
 % Copyright (C) 2012  Jaroslaw Piwonski, CAU, jpi@informatik.uni-kiel.de
@@ -16,11 +16,11 @@ function v = readVectorFromPETSc(filename)
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 %
-%   v = readVectorFromPETSc(filename)
+%   v = readPETScVector(filename)
 
-fid = fopen(filename, 'r', 'ieee-be');
-c   = fread(fid, 1, 'integer*4', 'ieee-be');    % read PETSc cookie
-c   = fread(fid, 1, 'integer*4', 'ieee-be');    % read number of doubles
-v   = fread(fid, c, 'real*8'   , 'ieee-be');    % read doubles into v
-err = fclose(fid);
+fid   = fopen(filename, 'r', 'ieee-be');    % open as big-endian (PETSc format)
+vecid = fread(fid, 1, 'integer*4');         % read PETSc vector cookie
+nrow  = fread(fid, 1, 'integer*4');         % read number of rows
+v     = fread(fid, nrow, 'real*8');         % read doubles into v
+err   = fclose(fid);
 
