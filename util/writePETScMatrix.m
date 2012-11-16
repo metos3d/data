@@ -27,14 +27,14 @@ function writePETScMatrix(A, filename)
 [nrow ncol] = size(A');
 nnzmat      = nnz(A');
 [colind,j]  = find(A');
-nnzrow      = hist(j,ncol);
+nnzrow      = hist(j,[1:ncol]);
 
 fid = fopen(filename, 'w', 'ieee-be');          % open as big-endian (PETSc format)
 err = fwrite(fid, 1211216, 'integer*4');        % write PETSc matrix cookie
-err = fwrite(fid, nrow, 'integer*4');           % write number of rows
-err = fwrite(fid, ncol, 'integer*4');           % write number of columns
+err = fwrite(fid, ncol, 'integer*4');           % write number of rows (ncol, see NOTE)
+err = fwrite(fid, nrow, 'integer*4');           % write number of columns (nrow, see NOTE)
 err = fwrite(fid, nnzmat, 'integer*4');         % write number of nonzeros
 err = fwrite(fid, nnzrow, 'integer*4');         % write number of nonzeros per row
-err = fwrite(fid, colind-1, 'integer*4');       % write column indices
+err = fwrite(fid, colind-1, 'integer*4');       % write column indices (0 indexed)
 err = fwrite(fid, nonzeros(A'), 'real*8');      % write nonzeros
 err = fclose(fid);

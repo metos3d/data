@@ -22,13 +22,13 @@ fid    = fopen(filename, 'r', 'ieee-be');       % open as big-endian (PETSc form
 matid  = fread(fid, 1, 'integer*4');            % read PETSc matrix cookie
 nrow   = fread(fid, 1, 'integer*4');            % read number of rows
 ncol   = fread(fid, 1, 'integer*4');            % read number of columns
-nnz    = fread(fid, 1, 'integer*4');            % read number of nonzeros
+nnzmat = fread(fid, 1, 'integer*4');            % read number of nonzeros
 nnzrow = fread(fid, nrow, 'integer*4');         % read number of nonzeros per row
-colind = fread(fid, nnz, 'integer*4');          % read column indices
-aij    = fread(fid, nnz, 'real*8');             % read nonzeros
+colind = fread(fid, nnzmat, 'integer*4');       % read column indices
+aij    = fread(fid, nnzmat, 'real*8');          % read nonzeros
 err    = fclose(fid);
 
-spdata = zeros(nnz, 3);
+spdata = zeros(nnzmat, 3);
 offset = 0;
 for i = [1:nrow]
     if (nnzrow(i) ~= 0)
@@ -38,4 +38,4 @@ for i = [1:nrow]
         offset = offset+nnzrow(i);
     end
 end
-A = spconvert(spdata);
+A = sparse(spdata(:,1), spdata(:,2), spdata(:,3), nrow, ncol);

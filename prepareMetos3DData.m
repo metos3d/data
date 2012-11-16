@@ -23,8 +23,13 @@ function prepareMetos3DData
 % make the output compact
 format compact
 
+% include read/write routines for PETSc data structures
+cd util;
+addpath(pwd);
+cd ..
+
 % prepare data files
-prepareDataFiles();
+%prepareDataFiles();
 
 % set base path
 setBasePath();
@@ -37,6 +42,17 @@ disp('Run script from Samar Khatiwala ...');
 cd 'MIT_Matrix_Global_2.8deg/'
 cd 'KielBiogeochem_NDOP_Matrix5_4/'
 prep_files_for_petsc_kiel_biogeochem_timestepping_cg;
+
+% prepare profiles
+load '../grid.mat' 'ideep';
+writePETScMatrix(sparse(ideep'), 'profiles.petsc');
+
+% prepare volumes
+rvol = zeros(size(volb));
+rvol(Irr) = volb;
+rvol = rvol./sum(rvol);
+writePETScVector(rvol, 'rvolumes.petsc');
+
 cd ..
 cd ..
 
@@ -47,81 +63,99 @@ convertDataToPETScFormat();
 makeDirectoryStructure();
 
 % copy into dir structure
-disp('Copy into directory structure ...');
+copyIntoDirectoryStructure();
 
-% transport
-disp('Transport ...');
-% explicit matrix
-for imatrix = 0 : 11
+% clean Up
+cleanUp();
+
+% clean path
+cd util;
+rmpath(pwd);
+cd ..;
+
+end
+
+%
+%   clean up
+%
+function cleanUp
+    disp('Clean up ...');
+    rmdir('Matrix','s')
+    rmdir('Misc','s')
+    rmdir('MITgcm','s')
+    rmdir('PETSC','s')
+    rmdir('MIT_Matrix_Global_2.8deg','s')
+end
+
+%
+%   copy into directory structure
+%
+function copyIntoDirectoryStructure
+    disp('Copy into directory structure ...');
+
+    % geometry
+    disp('Geometry ...');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/profiles.petsc', 'Metos3DData/2.8/Geometry/profiles.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/rvolumes.petsc', 'Metos3DData/2.8/Geometry/rvolumes.petsc');
+
+    % transport
+    disp('Transport ...');
+    % explicit matrix
+    for imatrix = 0 : 11
     fileNameFrom = ['MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/Ae_' sprintf('%02d', imatrix)];
     fileNameTo   = ['Metos3DData/2.8/Transport/Matrix5_4/1dt/Ae_' sprintf('%02d.petsc', imatrix)];
     disp(fileNameTo);
     copyfile(fileNameFrom, fileNameTo);
-end
-% implicit matrix
-for imatrix = 0 : 11
+    end
+    % implicit matrix
+    for imatrix = 0 : 11
     fileNameFrom = ['MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/Ai_' sprintf('%02d', imatrix)];
     fileNameTo   = ['Metos3DData/2.8/Transport/Matrix5_4/1dt/Ai_' sprintf('%02d.petsc', imatrix)];
     disp(fileNameTo);
     copyfile(fileNameFrom, fileNameTo);
-end
+    end
 
-% boundary conditions
-disp('Boundary conditions ...');
-% special
-copyfile('util/prep/fukushima.petsc', 'Metos3DData/2.8/Forcing/BoundaryCondition/Special/fukushima.petsc');
-% ice cover
-for ivector = 0 : 11
+    % boundary conditions
+    disp('Boundary conditions ...');
+    % special
+    copyfile('util/prep/fukushima.petsc', 'Metos3DData/2.8/Forcing/BoundaryCondition/Special/fukushima.petsc');
+    % ice cover
+    for ivector = 0 : 11
     fileNameFrom = ['MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/fice_' sprintf('%02d.petsc', ivector)];
     fileNameTo   = ['Metos3DData/2.8/Forcing/BoundaryCondition/fice_' sprintf('%02d.petsc', ivector)];
     disp(fileNameTo);
     copyfile(fileNameFrom, fileNameTo);
-end
-% latitude
-copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/latitude.bin.petsc', 'Metos3DData/2.8/Forcing/BoundaryCondition/latitude.petsc');
+    end
+    % latitude
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/latitude.bin.petsc', 'Metos3DData/2.8/Forcing/BoundaryCondition/latitude.petsc');
 
-% domain conditions
-disp('Domain conditions ...');
-% heights
-copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/dz.petsc', 'Metos3DData/2.8/Forcing/DomainCondition/dz.petsc');
-% depths
-copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/z.petsc', 'Metos3DData/2.8/Forcing/DomainCondition/z.petsc');
-% salinity
-for ivector = 0 : 11
+    % domain conditions
+    disp('Domain conditions ...');
+    % heights
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/dz.petsc', 'Metos3DData/2.8/Forcing/DomainCondition/dz.petsc');
+    % depths
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/z.petsc', 'Metos3DData/2.8/Forcing/DomainCondition/z.petsc');
+    % salinity
+    for ivector = 0 : 11
     fileNameFrom = ['MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/Ss_' sprintf('%02d', ivector)];
     fileNameTo   = ['Metos3DData/2.8/Forcing/DomainCondition/Ss_' sprintf('%02d.petsc', ivector)];
     disp(fileNameTo);
     copyfile(fileNameFrom, fileNameTo);
-end
-% temperature
-for ivector = 0 : 11
+    end
+    % temperature
+    for ivector = 0 : 11
     fileNameFrom = ['MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/Ts_' sprintf('%02d', ivector)];
     fileNameTo   = ['Metos3DData/2.8/Forcing/DomainCondition/Ts_' sprintf('%02d.petsc', ivector)];
     disp(fileNameTo);
     copyfile(fileNameFrom, fileNameTo);
-end
+    end
 
-% geometry
-disp('Geometry ...');
-% indices
-%copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/gStartIndicesNew.bin', 'Metos3DData/2.8/Geometry/gStartIndices.bin');
-%copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/gEndIndicesNew.bin', 'Metos3DData/2.8/Geometry/gEndIndices.bin');
-
-% tracer initialization
-disp('Tracer initialization ...');
-copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/po4ini.petsc', 'Metos3DData/2.8/Initialization/po4ini.petsc');
-copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/dopini.petsc', 'Metos3DData/2.8/Initialization/dopini.petsc');
-copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/oxyini.petsc', 'Metos3DData/2.8/Initialization/oxyini.petsc');
-copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/phyini.petsc', 'Metos3DData/2.8/Initialization/phyini.petsc');
-
-% clean Up
-disp('Clean up ...');
-rmdir('Matrix','s')
-rmdir('Misc','s')
-rmdir('MITgcm','s')
-rmdir('PETSC','s')
-rmdir('MIT_Matrix_Global_2.8deg','s')
-
+    % tracer initialization
+    disp('Tracer initialization ...');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/po4ini.petsc', 'Metos3DData/2.8/Initialization/po4ini.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/dopini.petsc', 'Metos3DData/2.8/Initialization/dopini.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/oxyini.petsc', 'Metos3DData/2.8/Initialization/oxyini.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/phyini.petsc', 'Metos3DData/2.8/Initialization/phyini.petsc');
 end
 
 %
