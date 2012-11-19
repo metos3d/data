@@ -1,0 +1,9 @@
+v0.2rc3
+
+1. added read/write routines for PETSc vector/matrix
+2. split computation of coarse time steps for matrices into two routines (explicit/implicit)
+3. got rid of start/end indices files
+4. added profiles/rvolumes files, all files have PETSc format now
+4.1 profiles file is a sparse PETSc matrix now
+4.2 volumes are relative, i.e. sum(rvolumes) == 1
+5. added TODO.txt file
