@@ -29,7 +29,7 @@ addpath(pwd);
 cd ..
 
 % prepare data files
-%prepareDataFiles();
+prepareDataFiles();
 
 % set base path
 setBasePath();
