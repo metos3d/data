@@ -45,13 +45,13 @@ prep_files_for_petsc_kiel_biogeochem_timestepping_cg;
 
 % prepare profiles
 load '../grid.mat' 'ideep';
-writePETScMatrix(sparse(ideep'), 'profiles.petsc');
+writePETScMatrix(sparse(ideep'), 'Profiles.petsc');
 
 % prepare volumes
 rvol = zeros(size(volb));
 rvol(Irr) = volb;
 rvol = rvol./sum(rvol);
-writePETScVector(rvol, 'rvolumes.petsc');
+writePETScVector(rvol, 'rVolumes.petsc');
 
 cd ..
 cd ..
@@ -95,8 +95,8 @@ function copyIntoDirectoryStructure
 
     % geometry
     disp('Geometry ...');
-    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/profiles.petsc', 'Metos3DData/2.8/Geometry/profiles.petsc');
-    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/rvolumes.petsc', 'Metos3DData/2.8/Geometry/rvolumes.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/Profiles.petsc', 'Metos3DData/2.8/Geometry/Profiles.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/rVolumes.petsc', 'Metos3DData/2.8/Geometry/rVolumes.petsc');
 
     % transport
     disp('Transport ...');
