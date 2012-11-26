@@ -42,17 +42,6 @@ disp('Run script from Samar Khatiwala ...');
 cd 'MIT_Matrix_Global_2.8deg/'
 cd 'KielBiogeochem_NDOP_Matrix5_4/'
 prep_files_for_petsc_kiel_biogeochem_timestepping_cg;
-
-% prepare profiles
-load '../grid.mat' 'ideep';
-writePETScMatrix(sparse(ideep'), 'Profiles.petsc');
-
-% prepare volumes
-rvol = zeros(size(volb));
-rvol(Irr) = volb;
-rvol = rvol./sum(rvol);
-writePETScVector(rvol, 'rVolumes.petsc');
-
 cd ..
 cd ..
 
@@ -95,8 +84,9 @@ function copyIntoDirectoryStructure
 
     % geometry
     disp('Geometry ...');
-    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/Profiles.petsc', 'Metos3DData/2.8/Geometry/Profiles.petsc');
-    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/rVolumes.petsc', 'Metos3DData/2.8/Geometry/rVolumes.petsc');
+    % indices
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/gStartIndicesNew.bin', 'Metos3DData/2.8/Geometry/gStartIndices.bin');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/gEndIndicesNew.bin', 'Metos3DData/2.8/Geometry/gEndIndices.bin');
 
     % transport
     disp('Transport ...');
@@ -188,6 +178,8 @@ function convertDataToPETScFormat
     convertBoundaryConditionsToPETSc(12, 'fice_', 4448);
     % depths
     convertHeightsToDepths
+    % indices
+    convertIndices
     cd ..
     cd ..
 end
@@ -205,6 +197,7 @@ function copyNeededFiles
     copyfile('util/prep/writePetscBinaryMat_mex.m','MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/writePetscBinaryMat_mex.m')
     copyfile('util/prep/convertBoundaryConditionsToPETSc.m','MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/convertBoundaryConditionsToPETSc.m')
     copyfile('util/prep/convertHeightsToDepths.m','MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/convertHeightsToDepths.m')
+    copyfile('util/prep/convertIndices.m','MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/convertIndices.m')
 end
 
 %
@@ -251,3 +244,16 @@ function uncompressDataFile(filename)
         error(['File "' filetargz '" does not exists!']);
     end
 end
+
+%
+%   DUMP
+%
+% prepare profiles
+%load '../grid.mat' 'ideep';
+%writePETScMatrix(sparse(ideep'), 'Profiles.petsc');
+                         
+ % prepare volumes
+ %rvol = zeros(size(volb));
+ %rvol(Irr) = volb;
+ %rvol = rvol./sum(rvol);
+ %writePETScVector(rvol, 'rVolumes.petsc');
