@@ -42,6 +42,17 @@ disp('Run script from Samar Khatiwala ...');
 cd 'MIT_Matrix_Global_2.8deg/'
 cd 'KielBiogeochem_NDOP_Matrix5_4/'
 prep_files_for_petsc_kiel_biogeochem_timestepping_cg;
+
+% prepare land sea mask
+load '../grid.mat' 'ideep';
+writePETScMatrix(sparse(ideep'), 'landSeaMask.petsc');
+
+% prepare relative volumes
+rvol = zeros(size(volb));
+rvol(Irr) = volb;
+rvol = rvol./sum(rvol);
+writePETScVector(rvol, 'relativeVolumes.petsc');
+
 cd ..
 cd ..
 
@@ -87,7 +98,9 @@ function copyIntoDirectoryStructure
     % indices
     copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/gStartIndicesNew.bin', 'Metos3DData/2.8/Geometry/gStartIndices.bin');
     copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/gEndIndicesNew.bin', 'Metos3DData/2.8/Geometry/gEndIndices.bin');
-
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/landSeaMask.petsc', 'Metos3DData/2.8/Geometry/landSeaMask.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/relativeVolumes.petsc', 'Metos3DData/2.8/Geometry/relativeVolumes.petsc');
+                        
     % transport
     disp('Transport ...');
     % explicit matrix
@@ -244,16 +257,3 @@ function uncompressDataFile(filename)
         error(['File "' filetargz '" does not exists!']);
     end
 end
-
-%
-%   DUMP
-%
-% prepare profiles
-%load '../grid.mat' 'ideep';
-%writePETScMatrix(sparse(ideep'), 'Profiles.petsc');
-                         
- % prepare volumes
- %rvol = zeros(size(volb));
- %rvol(Irr) = volb;
- %rvol = rvol./sum(rvol);
- %writePETScVector(rvol, 'rVolumes.petsc');
