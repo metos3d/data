@@ -50,8 +50,9 @@ writePETScMatrix(sparse(ideep'), 'landSeaMask.petsc');
 % prepare relative volumes
 rvol = zeros(size(volb));
 rvol(Irr) = volb;
+writePETScVector(rvol, 'volumes.petsc');
 rvol = rvol./sum(rvol);
-writePETScVector(rvol, 'relativeVolumes.petsc');
+writePETScVector(rvol, 'normalizedVolumes.petsc');
 
 cd ..
 cd ..
@@ -99,7 +100,8 @@ function copyIntoDirectoryStructure
     copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/gStartIndicesNew.bin', 'Metos3DData/2.8/Geometry/gStartIndices.bin');
     copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/gEndIndicesNew.bin', 'Metos3DData/2.8/Geometry/gEndIndices.bin');
     copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/landSeaMask.petsc', 'Metos3DData/2.8/Geometry/landSeaMask.petsc');
-    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/relativeVolumes.petsc', 'Metos3DData/2.8/Geometry/relativeVolumes.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/volumes.petsc', 'Metos3DData/2.8/Geometry/volumes.petsc');
+    copyfile('MIT_Matrix_Global_2.8deg/KielBiogeochem_NDOP_Matrix5_4/normalizedVolumes.petsc', 'Metos3DData/2.8/Geometry/normalizedVolumes.petsc');
                         
     % transport
     disp('Transport ...');

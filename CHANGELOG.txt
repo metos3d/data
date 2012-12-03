@@ -1,9 +1,20 @@
 v0.2rc3
 
 1. Added read/write routines for PETSc vector/matrix.
+
 2. Split computation of coarse time steps for matrices into two routines (explicit/implicit).
+
 3. (*POSTPONED*) Got rid of start/end indices files.
+
 4. (*POSTPONED*) Added profiles/rvolumes files, all files have PETSc format now.
 4.1 (*POSTPONED*) Profiles file is a sparse PETSc matrix now.
 4.2 (*POSTPONED*) Volumes are relative, i.e. sum(rvolumes) == 1.
+
 5. Added 'TODO.txt' file.
+
+6. 'landSeaMask.petsc', 'volumes.petsc' and 'normalizedVolumes.petsc' are provided
+    in the 'Geometry' directory now
+
+7. Added 'reshapeVectorTo3D.m'.
+
+
