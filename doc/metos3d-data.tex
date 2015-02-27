@@ -15,7 +15,6 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 %
-%   metos3d-data.tex
 
 %
 %	document class
@@ -24,6 +23,7 @@
 %
 %	packages
 %
+\usepackage{natbib}
 \usepackage{amsmath}
 \usepackage[pdfborder={0 0 0},colorlinks,urlcolor=blue]{hyperref}
 %
@@ -39,8 +39,8 @@
 %
 \title{
 Metos3D \\
-\bigskip
-Data
+\medskip
+\texttt{data}
 }
 \author{
 Jaroslaw Piwonski\thanks{\texttt{jpi@informatik.uni-kiel.de}} \,,
@@ -58,39 +58,12 @@ Excellence Cluster The Future Ocean, Christian-Albrechts-Platz 4, 24118 Kiel, Ge
 
 Metos3D was developed to use data provided by the
 \href{http://www.ldeo.columbia.edu/~spk/Research/TMM/tmm.html}{Transport Matrix Method}
-in the first place (see \cite{KhViCa05}).
+in the first place \citep[cf. ][]{KhViCa05}.
 %
-This data is maintained by
+This original data is maintained by
 \href{http://www.ldeo.columbia.edu/~spk/}{Samar Khatiwala}.
 %
-Metos3D supplies you with a
-MATLAB\footnote{MATLAB is a registered trademark of The MathWorks, Inc., 
-\texttt{www.mathworks.com}}
-script to prepare it for usage.
-
-%
-%	Quick Start
-%
-\section{Quick Start}
-
-Assuming you are in the same directory as the 'README.txt' file, do the following:
-
-\begin{enumerate}
-\item Download the required data.
-\begin{verbatim}
-$>
-wget http://www.ldeo.columbia.edu/~spk/Research/TMM/MIT_Matrix_Global_2.8deg.tar.gz  # 503M !!! 
-wget http://www.ldeo.columbia.edu/~spk/Code/Matlab/Matrix.tar.gz                     #   9K
-wget http://www.ldeo.columbia.edu/~spk/Code/Matlab/Misc.tar.gz                       #  23K
-wget http://www.ldeo.columbia.edu/~spk/Code/Matlab/MITgcm.tar.gz                     #  16K
-wget http://www.ldeo.columbia.edu/~spk/Code/Matlab/PETSC.tar.gz                      #  14K
-\end{verbatim}
-\item Start MATLAB and call
-\begin{verbatim}
->>
-prepareMetos3DData
-\end{verbatim}
-\end{enumerate}
+Metos3D provides already prepared data for usage.
 
 %
 %	Data
@@ -102,18 +75,16 @@ The vector length, the profile count and the maximum number of layers is $ 52749
 and $ 15 $, respectively. The temporal resolution is $ 3 $ hours,
 assuming $ 360 $ days and $ 2880 $ steps per year.
 
-%Additional matrices for coarser temporal resolutions can be provided (see \cite{Kha07}).
-
 %
 %	Data Hierarchy
 %
 \subsection{Data Hierarchy}
 
 The data is organized in a hierarchy of directories starting with the
-root directory named \texttt{Metos3DData}.
+root directory named \texttt{TMM}.
 The \textbf{main distinction} between data files is the \textbf{spatial resolution}:
 \begin{verbatim}
-.../Metos3DData/
+.../TMM/
     2.8/
 \end{verbatim}
 
@@ -121,7 +92,7 @@ For a spatial resolution you will find a distinction
 into \textbf{geometry}, \textbf{initialization}, \textbf{forcing} and
 \textbf{transport} within that directory:
 \begin{verbatim}
-.../Metos3DData/2.8/
+.../TMM/2.8/
     Geometry/
     Initialization/
     Forcing/
@@ -131,7 +102,7 @@ into \textbf{geometry}, \textbf{initialization}, \textbf{forcing} and
 The geometry and initialization directories have no further subdirectories.
 The forcing is divided into \textbf{boundary} and \textbf{domain conditions}.
 \begin{verbatim}
-.../Metos3DData/2.8/Forcing/
+.../TMM/2.8/Forcing/
     BoundaryCondition/
     DomainCondition/
 \end{verbatim}
@@ -139,11 +110,8 @@ The forcing is divided into \textbf{boundary} and \textbf{domain conditions}.
 The transport matrices are organized within the transport directory.
 The first level of subdirectories denote the \textbf{kind} of matrices (see \cite{KhViCa05}).
 The second distinguishes between \textbf{temporal resolutions}.
-%The \texttt{1dt}
-%directory corresponds to the $ 3 $ hour time step, \texttt{2dt} to the $ 6 $
-%hour time step and so on:
 \begin{verbatim}
-.../Metos3DData/2.8/Transport/
+.../TMM/2.8/Transport/
     Matrix5_4/
         1dt/
 \end{verbatim}
@@ -153,6 +121,6 @@ The second distinguishes between \textbf{temporal resolutions}.
 %
 \bibliographystyle{plain}
 %\bibliography{/Users/jpicau/Documents/ARBEIT/CODE/Literature/literature}
-\input{metos3d-data-bbl}
+\input{metos3d-data.bbl.tex}
 
 \end{document}

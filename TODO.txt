@@ -1,3 +1,0 @@
-TODO
-
-1. Currently nothing to be done for 'metos3d/data'.

@@ -1,20 +1,20 @@
-v0.2rc3
+#
+# Metos3D: A Marine Ecosystem Toolkit for Optimization and Simulation in 3-D
+# Copyright (C) 2012  Jaroslaw Piwonski, CAU, jpi@informatik.uni-kiel.de
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 
-1. Added read/write routines for PETSc vector/matrix.
-
-2. Split computation of coarse time steps for matrices into two routines (explicit/implicit).
-
-3. (*POSTPONED*) Got rid of start/end indices files.
-
-4. (*POSTPONED*) Added profiles/rvolumes files, all files have PETSc format now.
-4.1 (*POSTPONED*) Profiles file is a sparse PETSc matrix now.
-4.2 (*POSTPONED*) Volumes are relative, i.e. sum(rvolumes) == 1.
-
-5. Added 'TODO.txt' file.
-
-6. 'landSeaMask.petsc', 'volumes.petsc' and 'normalizedVolumes.petsc' are provided
-    in the 'Geometry' directory now
-
-7. Added 'reshapeVectorTo3D.m'.
-
-
+v0.2
+- official initial version
